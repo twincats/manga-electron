@@ -3,15 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "/@/*": [
-        "./src/*"
-      ]
+      "/@/*": ["./src/*"]
     },
+    "experimentalDecorators": true
   },
-  "files": [
-    "src/index.ts"
-  ],
-  "include": [
-    "../../types/**/*.d.ts"
-  ]
+  "files": ["src/index.ts"],
+  "include": ["../../types/**/*.d.ts"]
 }

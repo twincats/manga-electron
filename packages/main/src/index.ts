@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { URL } from 'url';
 import mainProcess from './ipcmain';
+import imgProtocol from './protocol';
 
 const isSingleInstance = app.requestSingleInstanceLock();
 
@@ -26,7 +27,7 @@ if (env.MODE === 'development') {
         loadExtensionOptions: {
           allowFileAccess: true,
         },
-      }),
+      })
     )
     .catch((e) => console.error('Failed install extension:', e));
 }
@@ -58,16 +59,19 @@ const createWindow = async () => {
       ? <string>env.VITE_DEV_SERVER_URL
       : new URL(
           '../renderer/dist/index.html',
-          'file://' + __dirname,
+          'file://' + __dirname
         ).toString();
 
   if (env.MODE === 'development') {
     mainWindow.webContents.once('dom-ready', () =>
-      mainWindow?.webContents.openDevTools(),
+      mainWindow?.webContents.openDevTools()
     );
   }
 
   await mainWindow.loadURL(pageUrl);
+
+  //load protocol
+  imgProtocol();
 };
 
 app.on('second-instance', () => {
