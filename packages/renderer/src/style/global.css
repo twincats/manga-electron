@@ -1,0 +1,24 @@
+body {
+  @apply dark:bg-true-gray-800 dark:text-white bg-true-gray-100;
+}
+
+button:focus {
+  /* @apply outline-none; */
+  outline: none;
+}
+
+a {
+  color: #42b983;
+}
+
+.btn {
+  @apply font-medium text-sm rounded bg-gray-100 text-gray-500 px-5 py-3 hover:bg-gray-200;
+}
+
+.btn {
+  line-heigh: 0.875rem;
+}
+
+.btn-primary {
+  @apply bg-hex-f67f00 text-white hover:bg-hex-fca242 active:bg-hex-ff9019;
+}
