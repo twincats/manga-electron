@@ -16,11 +16,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useElectron } from '/@/use/electronx';
+import { useVersion } from '/@/use/hooks';
 export default defineComponent({
   name: 'App',
   setup() {
-    const { versions } = useElectron();
+    const versions = useVersion();
     // It makes no sense to make "versions" reactive
     return { versions };
   },
