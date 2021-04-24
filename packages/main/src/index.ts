@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, nativeTheme } from 'electron';
 import { join } from 'path';
 import { URL } from 'url';
 import mainProcess from './ipcmain';
@@ -35,7 +35,8 @@ if (env.MODE === 'development') {
 
 // load ipcmain before load window
 mainProcess();
-//load protocol
+//change native theme
+nativeTheme.themeSource = 'dark';
 
 let mainWindow: BrowserWindow | null = null;
 

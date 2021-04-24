@@ -1,5 +1,5 @@
 import { useIpc } from './electron';
-import type { Services } from '../../../main/src/services';
+import type { Services } from '../../../../main/src/services';
 
 const { invoke } = useIpc();
 
@@ -11,7 +11,7 @@ function createProxy(service: string) {
           'service:call',
           service,
           functionName as string,
-          ...payloads,
+          ...payloads
         );
       };
     },
