@@ -38,6 +38,7 @@
               /> -->
               <el-image
                 fit="cover"
+                style="display: block"
                 class="h-70"
                 :src="loadImage('D:/DATA/Manga/' + item + '/cover.webp')"
                 lazy
