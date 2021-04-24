@@ -6,14 +6,8 @@ import { promisify } from 'util';
 
 const readdirs = promisify(readdir);
 
-interface BasicInformation {
-  platform: NodeJS.Platform;
-  version: string;
-  root: string;
-}
-
 export class BaseService extends Service {
-  async getBasicInformation(): Promise<BasicInformation> {
+  async getBasicInformation(): Promise<any> {
     this.log('getBasicInformation is called!');
     const result = {
       platform: platform(),

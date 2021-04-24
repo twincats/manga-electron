@@ -1,5 +1,11 @@
+@import "./app.css";
+
+:root {
+  color-scheme: dark;
+}
+
 body {
-  @apply dark:bg-true-gray-800 dark:text-white bg-true-gray-100;
+  @apply select-none dark:bg-true-gray-800 dark:text-white bg-true-gray-100;
 }
 
 button:focus {

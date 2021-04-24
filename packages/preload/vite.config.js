@@ -1,8 +1,8 @@
-import {chrome} from '../../electron-vendors.config.json';
-import {join} from 'path';
-import externalPackages from '../../external-packages.config.js';
-import {defineConfig} from 'vite';
-import {loadAndSetEnv} from '../../scripts/loadAndSetEnv.mjs';
+import { chrome } from '../../electron-vendors.config.json';
+import { join } from 'path';
+import { builtinModules } from 'module';
+import { defineConfig } from 'vite';
+import { loadAndSetEnv } from '../../scripts/loadAndSetEnv.mjs';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -39,7 +39,7 @@ export default defineConfig({
       formats: ['cjs'],
     },
     rollupOptions: {
-      external: externalPackages,
+      external: ['electron', ...builtinModules],
       output: {
         entryFileNames: '[name].cjs',
       },

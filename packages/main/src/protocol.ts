@@ -1,5 +1,5 @@
 import { protocol } from 'electron';
-const protocolName = 'img';
+const protocolName = 'files';
 
 export default (): void => {
   protocol.registerFileProtocol(protocolName, (request, callback) => {

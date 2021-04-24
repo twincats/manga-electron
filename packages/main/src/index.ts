@@ -21,6 +21,7 @@ const env = import.meta.env;
 if (env.MODE === 'development') {
   app
     .whenReady()
+    .then(() => imgProtocol()) // load local protocol
     .then(() => import('electron-devtools-installer'))
     .then(({ default: installExtension, VUEJS3_DEVTOOLS }) =>
       installExtension(VUEJS3_DEVTOOLS, {
@@ -34,14 +35,19 @@ if (env.MODE === 'development') {
 
 // load ipcmain before load window
 mainProcess();
+//load protocol
 
 let mainWindow: BrowserWindow | null = null;
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: true,
-    backgroundColor: '#262626',
     frame: true,
+    backgroundColor: '#262626',
+    width: 1280,
+    height: 720,
+    minWidth: 960,
+    minHeight: 540,
     webPreferences: {
       preload: join(__dirname, '../../preload/dist/index.cjs'),
       contextIsolation: env.MODE !== 'test', // Spectron tests can't work with contextIsolation: true
@@ -69,9 +75,6 @@ const createWindow = async () => {
   }
 
   await mainWindow.loadURL(pageUrl);
-
-  //load protocol
-  imgProtocol();
 };
 
 app.on('second-instance', () => {
