@@ -1,7 +1,10 @@
 <template>
   <div class="">
     <div class="text-center">
-      <div class="mb-5">
+      <div
+        v-if="false"
+        class="mb-5"
+      >
         <h1 class="text-5xl text-center w-full my-2">
           Selamat Datang di Manga Eletron
         </h1>
@@ -27,15 +30,12 @@
           v-for="(item, i) in manga"
           :key="i"
           class="group mb-2 2xl:w-3/24 xl:w-1/7 lg:w-2/12 md:w-2/10 sm:w-4/12 w-1/2 flex flex-col"
+          @click="routeTo(item)"
         >
           <div
-            class="p-1 group-hover:bg-orange-400 bg-orange-500 mx-1 rounded-md"
+            class="p-1 group-hover:cursor-pointer group-hover:bg-orange-400 bg-orange-500 mx-1 rounded-md"
           >
             <div class="overflow-hidden relative rounded">
-              <!-- <img
-                class="absolute h-full m-auto -left-999px -right-999px"
-                :src="loadImage('D:/DATA/Manga/' + item + '/cover.webp')"
-              /> -->
               <el-image
                 fit="cover"
                 style="display: block"
@@ -47,7 +47,7 @@
           </div>
 
           <div
-            class="group-hover:bg-orange-400 bg-orange-500 p-2 m-1 h-full rounded-md flex justify-center items-center"
+            class="group-hover:cursor-pointer group-hover:bg-orange-400 bg-orange-500 p-2 m-1 h-full rounded-md flex justify-center items-center"
             :title="item.length > 45 ? item : ''"
           >
             <div class="line-clamp-2">
@@ -62,6 +62,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElImage } from 'element-plus';
 import { useIpc, useService } from '/@/use/hooks';
 import loadImage from '/@/use/images';
@@ -74,6 +75,13 @@ export default defineComponent({
     const data = reactive({ manga: [''] });
     const { getFolderList } = useService('MangaService');
     const { invoke } = useIpc();
+
+    const router = useRouter();
+
+    const routeTo = (paramId: number | string): void => {
+      router.push({ name: 'chapter', params: { chapId: paramId } });
+    };
+
     const callMain = () => {
       invoke('msg', 'Achul').then((res) => {
         alert(res);
@@ -103,6 +111,7 @@ export default defineComponent({
       ...toRefs(data),
       mangaFilter,
       loadImage,
+      routeTo,
     };
   },
 });
