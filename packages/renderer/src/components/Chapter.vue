@@ -1,11 +1,8 @@
 <template>
-  <div>
+  <div class="px-3 mb-3">
     <h1 class="text-xl text-center mb-3">
       Chapter Manga<br>{{ $route.params.chapId }}
     </h1>
-    <router-link to="/">
-      Home
-    </router-link>
     <el-table
       :data="chapterList"
       :default-sort="{ prop: 'chapter', order: 'descending' }"

@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="px-3">
     <div class="text-center">
       <div
         v-if="false"
@@ -27,7 +27,7 @@
         class="flex flex-wrap"
       >
         <div
-          v-for="(item, i) in manga"
+          v-for="(item, i) in mangas"
           :key="i"
           class="group mb-2 2xl:w-3/24 xl:w-1/7 lg:w-2/12 md:w-2/10 sm:w-4/12 w-1/2 flex flex-col"
           @click="routeTo(item)"
@@ -88,9 +88,9 @@ export default defineComponent({
       });
     };
 
-    const mangaFilter = computed(() => {
-      return data.manga.filter((_val, i) => {
-        return i < 50;
+    const mangas = computed(() => {
+      return data.manga.filter((val) => {
+        return val != 'Manga Tidak Ditemukan';
       });
     });
 
@@ -109,7 +109,7 @@ export default defineComponent({
       callMain,
       callService,
       ...toRefs(data),
-      mangaFilter,
+      mangas,
       loadImage,
       routeTo,
     };

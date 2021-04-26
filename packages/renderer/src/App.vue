@@ -4,8 +4,11 @@
       <el-aside width="auto">
         <side-menu />
       </el-aside>
-      <el-main class="overflow-y-auto max-h-screen">
-        <router-view />
+      <el-main class="overflow-y-auto p-0 max-h-screen">
+        <div>
+          <router-view />
+        </div>
+        <page-nav />
       </el-main>
     </el-container>
   </el-container>
@@ -15,10 +18,11 @@
 import { defineComponent } from 'vue';
 import { ElContainer, ElAside, ElMain } from 'element-plus';
 import SideMenu from '/@/components/SideMenu.vue';
+import PageNav from '/@/components/PageNav.vue';
 
 export default defineComponent({
   name: 'App',
-  components: { ElContainer, ElAside, ElMain, SideMenu },
+  components: { ElContainer, ElAside, ElMain, SideMenu, PageNav },
 });
 </script>
 

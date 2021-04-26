@@ -23,6 +23,7 @@
     </el-menu-item>
     <el-menu-item
       index="3"
+      :disabled="btnChapterDisabled"
       @click="clickChapter"
     >
       <i class="el-icon-notebook-2" />
@@ -59,7 +60,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
+import type { RouteParams} from 'vue-router';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMenu, ElMenuItem, ElSubmenu } from 'element-plus';
 
@@ -84,7 +86,20 @@ export default defineComponent({
       }
     };
 
-    return { isCollapse, clickChapter };
+    const btnChapterDisabled = ref(true);
+
+    watch(
+      () => route.params,
+      async (newParams: RouteParams) => {
+        if (newParams.pageId !== undefined) {
+          btnChapterDisabled.value = false;
+        } else {
+          btnChapterDisabled.value = true;
+        }
+      }
+    );
+
+    return { isCollapse, clickChapter, btnChapterDisabled };
   },
 });
 </script>
