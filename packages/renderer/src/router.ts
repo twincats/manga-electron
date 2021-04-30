@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '/@/components/Home.vue';
-import Chapter from '/@/components/Chapter.vue';
-import Page from '/@/components/Page.vue';
+import Home from '/@/pages/Home.vue';
+import Chapter from '/@/pages/Chapter.vue';
+import Page from '/@/pages/Page.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'h',
-    component: () => import('/@/components/Test.vue'),
+    name: 'home',
+    component: Home,
   },
   {
     path: '/chapter/:chapId',
@@ -22,9 +22,8 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import('/@/components/About.vue'),
+    component: () => import('/@/pages/About.vue'),
   }, // Lazy load route component
-  { path: '/home', name: 'Home', component: Home },
 ];
 
 export default createRouter({

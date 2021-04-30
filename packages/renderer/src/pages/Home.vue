@@ -58,21 +58,32 @@
       </div>
     </div>
   </div>
+  <dialog-manga />
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, computed, onMounted } from 'vue';
+import {
+  defineComponent,
+  toRefs,
+  reactive,
+  computed,
+  onMounted,
+  watch,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { ElImage } from 'element-plus';
 import { useIpc, useService } from '/@/use/hooks';
+import { manga_directory } from '/@/use/storage';
 import loadImage from '/@/use/images';
+import DialogManga from '/@/components/DialogManga.vue';
 
 export default defineComponent({
   components: {
     ElImage,
+    DialogManga,
   },
   setup() {
-    const data = reactive({ manga: [''] });
+    const data = reactive({ manga: [''], showDialog: false });
     const { getFolderList } = useService('MangaService');
     const { invoke } = useIpc();
 
@@ -94,11 +105,19 @@ export default defineComponent({
       });
     });
 
+    watch(
+      () => manga_directory.value,
+      async () => {
+        callService();
+      }
+    );
+
     const callService = () => {
-      getFolderList('D:\\DATA\\Manga').then((result: string[]) => {
-        data.manga = result;
-        // console.log(result);
-      });
+      if (manga_directory.value != '') {
+        getFolderList(manga_directory.value).then((result: string[]) => {
+          data.manga = result;
+        });
+      }
     };
 
     onMounted(() => {

@@ -1,10 +1,8 @@
 import type { BaseService } from './BaseService';
 import { Inject, Service } from './Service';
 import { basename } from 'path';
-import { readdir } from 'fs';
+import { readdir, access } from 'fs';
 import { promisify } from 'util';
-
-const readdirs = promisify(readdir);
 
 const collator = new Intl.Collator(undefined, {
   numeric: true,
@@ -16,12 +14,24 @@ export class MangaService extends Service {
   private baseService!: BaseService;
 
   async getFolderList(path: string): Promise<string[]> {
+    const readdirs = promisify(readdir);
     if (path === basename(path)) {
       return Promise.reject('Not Valid path string');
     } else {
       const result = await readdirs(path);
       result.sort(collator.compare);
       return result;
+    }
+  }
+
+  async folderExist(path: string): Promise<boolean> {
+    const exist = promisify(access);
+
+    try {
+      await exist(path);
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }
